@@ -1,8 +1,6 @@
-let computerChoice;
-getComputerChoice();
-let playerChoice = 'scissors';
+let computerChoice; 
+let playerChoice;
 
-console.log(playRound(playerChoice, computerChoice));
 
 function getComputerChoice() {
     let num = Math.floor(Math.random() * 3);
@@ -22,21 +20,20 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
-    let message;
+    let roundResult;
     playerSelection = playerSelection.toUpperCase();
-    let loseMessage = `You Lose. ${computerSelection} beats ${playerSelection}.`;
-    let winMessage = `You Win. ${playerSelection} beats ${computerSelection}.`;
     if (playerSelection === computerSelection) {
-        message = "That's a tie! Let's re-play that!";
+        roundResult = 'tie';
     } else if (playerSelection === 'ROCK') {
-        message = (computerSelection === 'PAPER') ? loseMessage : winMessage;
+        roundResult = (computerSelection === 'PAPER') ? 'lose' : 'win';
     } else if (playerSelection === 'PAPER') {
-        message = (computerSelection === 'SCISSORS') ? loseMessage : winMessage;
+        roundResult = (computerSelection === 'SCISSORS') ? 'lose' : 'win';
     } else if (playerSelection === 'SCISSORS') {
-        message = (computerSelection === 'ROCK') ? loseMessage : winMessage;
+        roundResult = (computerSelection === 'ROCK') ? 'lose' : 'win';
     } else {
-        message = "You can only choose Rock, Paper or Scissors.";
+        roundResult = "Error";
     }
 
-    return message;
+    return roundResult;
 }
+
