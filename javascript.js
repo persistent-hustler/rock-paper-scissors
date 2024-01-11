@@ -16,13 +16,12 @@ function getComputerChoice() {
             computerChoice = 'SCISSORS';
             break;
         default:
-            computerChoice = 'Computer couldn\'t choose';
+            computerChoice = "Computer couldn't choose";
     }
 }
 
 function playRound(playerSelection, computerSelection) {
     let roundResult;
-    playerSelection = playerSelection.toUpperCase();
     if (playerSelection === computerSelection) {
         roundResult = 'tie';
     } else if (playerSelection === 'ROCK') {
@@ -44,7 +43,21 @@ function game() {
     let roundWins = 0;
 
     for(let i = 1; i <= 5; i++) {
-        playerChoice = prompt('Rock, Paper or Scissors? ');
+        playerChoice = prompt('Enter R for Rock, P for Paper or S for Scissors? ');
+        playerChoice = playerChoice.toUpperCase();
+        switch(playerChoice) {
+            case 'R' :
+                playerChoice = 'ROCK';
+                break;
+            case 'P' :
+                playerChoice = 'PAPER';
+                break;
+            case 'S' :
+                playerChoice = 'SCISSORS';
+                break;
+            default :
+            playerChoice = 'Error';
+        }
         getComputerChoice();
         roundResult = playRound(playerChoice, computerChoice);
         switch(roundResult) {
@@ -62,7 +75,7 @@ function game() {
                 i--;
                 break;
             default :
-                alert(`You can choose only Rock, Paper or Scissors. You ${roundWins} - ${roundsPlayed - roundWins} Me`);
+                alert(`You can enter only R, P or S. You ${roundWins} - ${roundsPlayed - roundWins} Me`);
                 i--;
         }
     }
