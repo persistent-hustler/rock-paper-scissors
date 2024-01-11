@@ -1,6 +1,6 @@
 let computerChoice; 
 let playerChoice;
-
+game();
 
 function getComputerChoice() {
     let num = Math.floor(Math.random() * 3);
@@ -37,3 +37,37 @@ function playRound(playerSelection, computerSelection) {
     return roundResult;
 }
 
+function game() {
+    let roundResult;
+    let roundWins = 0;
+
+    for(let i = 1; i <= 5; i++) {
+        playerChoice = prompt('Rock, Paper or Scissors? ');
+        getComputerChoice();
+        roundResult = playRound(playerChoice, computerChoice);
+        switch(roundResult) {
+            case 'win' :
+                console.log(`Your ${playerChoice} beats my ${computerChoice}`);
+                roundWins++;
+                break;
+            case 'lose' :
+                console.log(`My ${computerChoice} beats your ${playerChoice}`);
+                break;
+            case 'tie' :
+                console.log("Thats a tie! Let's re-play that!");
+                i--;
+                break;
+            default :
+                console.log("You can choose only Rock, Paper or Scissors.");
+                i--;
+        }
+    }
+
+    let roundLosses = 5 - roundWins;
+    let winMessage = `You beat me ${roundWins} - ${roundLosses}. Congratulations!`;
+    let loseMessage = `I win ${roundLosses} - ${roundWins}. Better luck next time!`;
+    let finalMessage = (roundWins >= 3) ? winMessage : loseMessage;
+
+    console.log(finalMessage);
+    alert(finalMessage);
+}
