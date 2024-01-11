@@ -40,6 +40,7 @@ function playRound(playerSelection, computerSelection) {
 
 function game() {
     let roundResult;
+    let roundsPlayed = 0;
     let roundWins = 0;
 
     for(let i = 1; i <= 5; i++) {
@@ -48,18 +49,20 @@ function game() {
         roundResult = playRound(playerChoice, computerChoice);
         switch(roundResult) {
             case 'win' :
-                alert(`Your ${playerChoice} beats my ${computerChoice}`);
                 roundWins++;
+                roundsPlayed++;
+                alert(`Your ${playerChoice} beats my ${computerChoice}. You ${roundWins} - ${roundsPlayed - roundWins} Me`);
                 break;
             case 'lose' :
-                alert(`My ${computerChoice} beats your ${playerChoice}`);
+                roundsPlayed++;
+                alert(`My ${computerChoice} beats your ${playerChoice}. You ${roundWins} - ${roundsPlayed - roundWins} Me`);
                 break;
             case 'tie' :
-                alert("Thats a tie! Let's re-play that!");
+                alert(`Thats a tie! Let's re-play that! You ${roundWins} - ${roundsPlayed - roundWins} Me`);
                 i--;
                 break;
             default :
-                alert("You can choose only Rock, Paper or Scissors.");
+                alert(`You can choose only Rock, Paper or Scissors. You ${roundWins} - ${roundsPlayed - roundWins} Me`);
                 i--;
         }
     }
