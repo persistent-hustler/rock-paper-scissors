@@ -1,3 +1,4 @@
+alert("Up for a 5-match Rock Paper Scissors?");
 let computerChoice; 
 let playerChoice;
 game();
@@ -47,18 +48,18 @@ function game() {
         roundResult = playRound(playerChoice, computerChoice);
         switch(roundResult) {
             case 'win' :
-                console.log(`Your ${playerChoice} beats my ${computerChoice}`);
+                alert(`Your ${playerChoice} beats my ${computerChoice}`);
                 roundWins++;
                 break;
             case 'lose' :
-                console.log(`My ${computerChoice} beats your ${playerChoice}`);
+                alert(`My ${computerChoice} beats your ${playerChoice}`);
                 break;
             case 'tie' :
-                console.log("Thats a tie! Let's re-play that!");
+                alert("Thats a tie! Let's re-play that!");
                 i--;
                 break;
             default :
-                console.log("You can choose only Rock, Paper or Scissors.");
+                alert("You can choose only Rock, Paper or Scissors.");
                 i--;
         }
     }
@@ -68,6 +69,5 @@ function game() {
     let loseMessage = `I win ${roundLosses} - ${roundWins}. Better luck next time!`;
     let finalMessage = (roundWins >= 3) ? winMessage : loseMessage;
 
-    console.log(finalMessage);
     alert(finalMessage);
 }
