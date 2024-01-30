@@ -8,6 +8,7 @@ const computerScore = document.querySelector('#computerScore');
 const roundMessage = document.querySelector('#roundMessage');
 const content = document.querySelector("#content");
 const buttons = document.querySelector('#buttons');
+const body = document.querySelector('body');
 
 buttons.addEventListener('click', game);
 
@@ -45,10 +46,16 @@ function game(event) {
         case 'tie' :
             roundMessage.textContent = "That's a tie. Let's replay that!";
     }
-    if(playerWins >= 5) {
-        content.textContent = `You WON the game 5 - ${computerWins}. Refresh tab to play again.`;
-    } else if(computerWins >= 5) {
-        content.textContent = `You LOST the game ${playerWins} - 5. Refresh tab to play again.`;
+    if (playerWins === 5 || computerWins === 5) {
+        if(playerWins === 5) {
+            content.textContent = `You WON the game 5 - ${computerWins}.`;
+        } else if(computerWins === 5) {
+            content.textContent = `You LOST the game ${playerWins} - 5.`;
+        }
+        const refreshButton = document.createElement('a');
+        refreshButton.setAttribute('href', 'javascript: location.reload();')
+        refreshButton.textContent = 'Restart the game';
+        body.appendChild(refreshButton);
     }
 }
 
