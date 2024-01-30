@@ -1,91 +1,51 @@
 let playerWins = 0;
 let computerWins = 0;
+let playerChoice;
 let computerChoice;
+let roundResult;
 const playerScore = document.querySelector('#playerScore');
 const computerScore = document.querySelector('#computerScore');
 const roundMessage = document.querySelector('#roundMessage');
 const finalMessage = document.querySelector('#finalMessage');
-const rock = document.querySelector('#ROCK');
-const paper = document.querySelector('#PAPER');
-const scissors = document.querySelector('#SCISSORS');
+const buttons = document.querySelector('#buttons');
 
+buttons.addEventListener('click', (event) => {
+    let target = event.target;
 
-rock.addEventListener('click', () => {
-    let roundResult = playRound('ROCK');
+    switch(target.id) {
+        case 'ROCK' :
+            playerChoice = 'ROCK';
+            roundResult = playRound('ROCK');
+            break;
+        case 'PAPER' :
+            playerChoice = 'PAPER';
+            roundResult = playRound('PAPER');
+            break;
+        case 'SCISSORS' :
+            playerChoice = 'SCISSORS';
+            roundResult = playRound('SCISSORS');
+            break;
+    }
+
     switch(roundResult) {
         case 'win' :
             playerWins++;
-            roundMessage.textContent = "Computer's choice: Scissors. You won the round.";
+            playerScore.textContent = playerWins;
+            roundMessage.textContent = `${playerChoice} beats ${computerChoice}. You win the round.`;
             break;
         case 'lose' :
             computerWins++;
-            roundMessage.textContent = 'Computer chose Paper. You lost the round.';
+            computerScore.textContent = computerWins;
+            roundMessage.textContent = `${computerChoice} beats ${playerChoice}. You lose the round.`;
             break;
         case 'tie' :
-            roundMessage.textContent = "We both went rock! That's a tie!";
-            break;
+            roundMessage.textContent = "That's a tie. Let's replay that!";
     }
-    playerScore.textContent = playerWins;
-    computerScore.textContent = computerWins;
-});
-
-paper.addEventListener('click', () => {
-    let roundResult = playRound('PAPER');
-    switch(roundResult) {
-        case 'win' :
-            playerWins++;
-            roundMessage.textContent = "Computer's choice: Rock. You won the round.";
-            break;
-        case 'lose' :
-            computerWins++;
-            roundMessage.textContent = 'Computer chose Scissors. You lost the round.';
-            break;
-        case 'tie' :
-            roundMessage.textContent = "We both went Paper! That's a tie!";
-            break;
-    }
-    playerScore.textContent = playerWins;
-    computerScore.textContent = computerWins;
-});
-
-scissors.addEventListener('click', () => {
-    let roundResult = playRound('SCISSORS');
-    switch(roundResult) {
-        case 'win' :
-            playerWins++;
-            roundMessage.textContent = "Computer's choice: Paper. You won the round.";
-            break;
-        case 'lose' :
-            computerWins++;
-            roundMessage.textContent = 'Computer chose Rock. You lost the round.';
-            break;
-        case 'tie' :
-            roundMessage.textContent = "We both went Scissors! That's a tie!";
-            break;
-    }
-    playerScore.textContent = playerWins;
-    computerScore.textContent = computerWins;
 });
 
 // Function Declarations below
 
-function getComputerChoice() {
-    let num = Math.floor(Math.random() * 3);
-    switch(num) {
-        case 0 :
-            return 'ROCK';
-        case 1 :
-            return 'PAPER';
-        case 2 :
-            return 'SCISSORS';
-        default:
-            return "Computer couldn't choose";
-    }
-}
-
 function playRound(playerSelection) {
-    let roundResult;
-    playerSelection = playerSelection.toUpperCase();
     computerChoice = getComputerChoice();
 
     if (playerSelection === computerChoice) {
@@ -101,4 +61,18 @@ function playRound(playerSelection) {
     }
 
     return roundResult;
+}
+
+function getComputerChoice() {
+    let num = Math.floor(Math.random() * 3);
+    switch(num) {
+        case 0 :
+            return 'ROCK';
+        case 1 :
+            return 'PAPER';
+        case 2 :
+            return 'SCISSORS';
+        default:
+            return "Computer couldn't choose";
+    }
 }
