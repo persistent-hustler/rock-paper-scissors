@@ -1,27 +1,22 @@
-alert("Up for a 5-match Rock Paper Scissors?");
-let computerChoice; 
-let playerChoice;
-game();
-
 function getComputerChoice() {
     let num = Math.floor(Math.random() * 3);
     switch(num) {
         case 0 :
-            computerChoice = 'ROCK';
-            break;
+            return 'ROCK';
         case 1 :
-            computerChoice = 'PAPER';
-            break;
+            return 'PAPER';
         case 2 :
-            computerChoice = 'SCISSORS';
-            break;
+            return 'SCISSORS';
         default:
-            computerChoice = "Computer couldn't choose";
+            return "Computer couldn't choose";
     }
 }
 
-function playRound(playerSelection, computerSelection) {
+function playRound(playerSelection) {
     let roundResult;
+    playerSelection = playerSelection.toUpperCase();
+    computerSelection = getComputerChoice();
+
     if (playerSelection === computerSelection) {
         roundResult = 'tie';
     } else if (playerSelection === 'ROCK') {
@@ -37,53 +32,31 @@ function playRound(playerSelection, computerSelection) {
     return roundResult;
 }
 
-function game() {
-    let roundResult;
-    let roundsPlayed = 0;
-    let roundWins = 0;
+// Person has clicked on Rock. What now?
 
-    for(let i = 1; i <= 5; i++) {
-        playerChoice = prompt('Enter R for Rock, P for Paper or S for Scissors? ');
-        playerChoice = playerChoice.toUpperCase();
-        switch(playerChoice) {
-            case 'R' :
-                playerChoice = 'ROCK';
-                break;
-            case 'P' :
-                playerChoice = 'PAPER';
-                break;
-            case 'S' :
-                playerChoice = 'SCISSORS';
-                break;
-            default :
-            playerChoice = 'Error';
-        }
-        getComputerChoice();
-        roundResult = playRound(playerChoice, computerChoice);
-        switch(roundResult) {
-            case 'win' :
-                roundWins++;
-                roundsPlayed++;
-                alert(`Your ${playerChoice} beats my ${computerChoice}. You ${roundWins} - ${roundsPlayed - roundWins} Me`);
-                break;
-            case 'lose' :
-                roundsPlayed++;
-                alert(`My ${computerChoice} beats your ${playerChoice}. You ${roundWins} - ${roundsPlayed - roundWins} Me`);
-                break;
-            case 'tie' :
-                alert(`Thats a tie! Let's re-play that! You ${roundWins} - ${roundsPlayed - roundWins} Me`);
-                i--;
-                break;
-            default :
-                alert(`You can enter only R, P or S. You ${roundWins} - ${roundsPlayed - roundWins} Me`);
-                i--;
-        }
+let playerWins = 0;
+let computerWins = 0;
+const playerScore = document.querySelector('#playerScore');
+const computerScore = document.querySelector('#computerScore');
+const roundMessage = document.querySelector('#roundMessage');
+const finalMessage = document.querySelector('#finalMessage');
+
+const rock = document.querySelector('#ROCK');
+rock.addEventListener('click', () => {
+    let roundResult = playRound('ROCK');
+    switch(roundResult) {
+        case 'win' :
+            playerWins++;
+            roundMessage.textContent = "Computer's choice: scissors. You won the round.";
+            break;
+        case 'lose' :
+            computerWins++;
+            roundMessage.textContent = 'Computer chose Paper. You lost the round.';
+            break;
+        case 'tie' :
+            roundMessage.textContent = "We both went rock! That's a tie!";
+            break;
     }
-
-    let roundLosses = 5 - roundWins;
-    let winMessage = `You beat me ${roundWins} - ${roundLosses}. Congratulations!`;
-    let loseMessage = `I win ${roundLosses} - ${roundWins}. Better luck next time!`;
-    let finalMessage = (roundWins >= 3) ? winMessage : loseMessage;
-
-    alert(finalMessage);
-}
+    playerScore.textContent = playerWins;
+    computerScore.textContent = computerWins;
+});
