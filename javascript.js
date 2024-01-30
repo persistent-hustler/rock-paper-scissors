@@ -6,10 +6,14 @@ let roundResult;
 const playerScore = document.querySelector('#playerScore');
 const computerScore = document.querySelector('#computerScore');
 const roundMessage = document.querySelector('#roundMessage');
-const finalMessage = document.querySelector('#finalMessage');
+const content = document.querySelector("#content");
 const buttons = document.querySelector('#buttons');
 
-buttons.addEventListener('click', (event) => {
+buttons.addEventListener('click', game);
+
+// Function Declarations below
+
+function game(event) {
     let target = event.target;
 
     switch(target.id) {
@@ -41,9 +45,12 @@ buttons.addEventListener('click', (event) => {
         case 'tie' :
             roundMessage.textContent = "That's a tie. Let's replay that!";
     }
-});
-
-// Function Declarations below
+    if(playerWins >= 5) {
+        content.textContent = `You WON the game 5 - ${computerWins}. Refresh tab to play again.`;
+    } else if(computerWins >= 5) {
+        content.textContent = `You LOST the game ${playerWins} - 5. Refresh tab to play again.`;
+    }
+}
 
 function playRound(playerSelection) {
     computerChoice = getComputerChoice();
